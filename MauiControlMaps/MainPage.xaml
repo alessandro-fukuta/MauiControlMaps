@@ -6,27 +6,29 @@
              Shell.NavBarIsVisible="False"
              >
 
-    <ScrollView>
-        <Grid Padding="0,0">
+    
+        <Grid HeightRequest="1000">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="640" />
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="840" />
                 <RowDefinition Height="30" />
-                <RowDefinition Height="100" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
 
-            <maps:Map Grid.Row="1" x:Name="map" MapType="Street" HeightRequest="690" Grid.ColumnSpan="3" />
+            <maps:Map Grid.Row="1" x:Name="map" MapType="Street" HeightRequest="930" Grid.ColumnSpan="4" MapClicked="MapaClicked" />
 
-            <Frame x:Name="frameCoordenadas" IsVisible="false" Grid.Row="0" Grid.ColumnSpan="3" HeightRequest="110" VerticalOptions="Start" BackgroundColor="Black" Opacity="0.7" Margin="10" CornerRadius="10">
 
-                <Grid Padding="0,-5" RowSpacing="10">
+           <Frame x:Name="frameCoordenadas" IsVisible="false" Grid.Row="0" Grid.ColumnSpan="4" HeightRequest="110" VerticalOptions="Start" BackgroundColor="Black" Opacity="0.7" Margin="0,180,0,0" CornerRadius="10">
+
+                <Grid Padding="0,-5" RowSpacing="10" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*"/>
@@ -50,55 +52,127 @@
                            WidthRequest="100"
                            TextColor="Blue" />
 
-                    <Button Text="Vai" 
-                            FontSize="30" 
-                            FontAttributes="Bold" 
+                    <ImageButton Source="gotolocal.png" 
                             Grid.Row="0" 
                             Margin="10"
                             Grid.RowSpan="2"
                             Grid.Column="2" 
                             Background="RosyBrown" 
-                            TextColor="Black" 
                             Clicked="btnNovoLocal"
-                            
-                            />
+                
+                    />  
 
                 </Grid>
-            
-            
+
+
             </Frame>
 
+            <Frame x:Name="frameEndereco" 
+                   ZIndex="1" 
+                   IsVisible="false" 
+                   Grid.Row="1" 
+                   Grid.ColumnSpan="4" 
+                   HeightRequest="110" 
+                   VerticalOptions="Start" 
+                   BackgroundColor="Black" 
+                   Opacity="0.7" 
+                   Margin="0,670,0,0" 
+                   CornerRadius="10">
 
-            <Button Grid.Row="2" BackgroundColor="AntiqueWhite" Opacity="0.8" Text="Coord" TextColor="Black"
-                    HeightRequest="40" WidthRequest="80" Clicked="btnAbriCoordenadas"/>
+                <Grid Padding="0,-5" ColumnSpacing="10" RowSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="3" Grid.Column="0"
-                    Text="Rua"
+                    <Label Text="Endereço:" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" TextColor="White" />
+                    <Label Text="Cidade:" Grid.Row="1" Grid.Column="0" TextColor="White" VerticalTextAlignment="Center" />
+
+                    <Entry x:Name="txtEndereco" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
+                        BackgroundColor="White" 
+                        FontSize="12" 
+                        TextColor="Black" />
+
+                    <Entry x:Name="txtCidade" Grid.Row="1" Grid.Column="1" 
+                        BackgroundColor="White" 
+                        FontSize="12" 
+                        TextColor="Black" />
+
+                    <Entry x:Name="txtEstado" Grid.Row="1" Grid.Column="2" 
+                        BackgroundColor="White" 
+                        FontSize="12" 
+                        TextColor="Black" 
+                        Completed="BuscaPorEndereco"
+                     />
+
+                </Grid>
+
+            </Frame>
+
+            <Frame x:Name="frameOpcoes" 
+                   HeightRequest="280" 
+                   WidthRequest="60" 
+                   Padding="0" 
+                   HorizontalOptions="Start" 
+                   ZIndex="1" 
+                   IsVisible="true" 
+                   Grid.Row="1" 
+                   Grid.ColumnSpan="4" 
+                   Margin="0,380"  
+                   VerticalOptions="Start" 
+                   BackgroundColor="White" 
+                   TranslationX="-200"
+                   CornerRadius="10">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+         
+                <ImageButton Grid.Row="0" Grid.Column="0"
+                    Source="street.png"
+                    HeightRequest="40"
                     Margin="10"
-                    FontFamily="20"
-                    FontAttributes="Bold"
                     Clicked="btnMapaRua"
                     />
-            <Button Grid.Row="3" Grid.Column="1"
-                    Text="Híbrido"
+                <ImageButton Grid.Row="1" Grid.Column="0"
                     Margin="10"
-                    FontFamily="20"
-                    FontAttributes="Bold"
+                    Source="hibrid.png"
+                    HeightRequest="40"
                     Clicked="btnMapaHibrido"
                 />
-            <Button Grid.Row="3" Grid.Column="2"
-                    Text="Satelite"
+                <ImageButton Grid.Row="2" Grid.Column="0"
+                    Source="satelite.png"
+                    HeightRequest="40"
                     Margin="10"
-                    FontFamily="20"
-                    FontAttributes="Bold"
                     Clicked="btnMapaSatelite"
-            />
-            
+                />
+                <ImageButton Grid.Row="3" Grid.Column="0"
+                        Source="compass.png"
+                        HeightRequest="40"
+                        Margin="10"
+                        Clicked="btnAbriCoordenadas"
+                />
+                <ImageButton Grid.Row="4" Grid.Column="0"
+                        Source="address.png"
+                        HeightRequest="40"
+                        Margin="10"
+                        Clicked="btnAbriEndereco"
+                />  
 
-
+            </Grid>
+            </Frame>
 
         </Grid>
-        
-    </ScrollView>
 
+    
 </ContentPage>
